@@ -6,15 +6,17 @@ model BrushlessMotor
   Modelica.Electrical.Analog.Basic.Inductor inductor2 annotation(Placement(visible = true, transformation(origin = {-20,20}, extent = {{-10,-10},{10,10}}, rotation = -90)));
   Modelica.Electrical.Analog.Basic.Inductor inductor3 annotation(Placement(visible = true, transformation(origin = {0,0}, extent = {{-10,-10},{10,10}}, rotation = -90)));
   Modelica.Mechanics.Rotational.Components.Inertia inertia1 annotation(Placement(visible = true, transformation(origin = {40,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b flange_b annotation(Placement(visible = true, transformation(origin = {100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Sensors.AngleSensor anglesensor1 annotation(Placement(visible = true, transformation(origin = {20,40}, extent = {{-10,-10},{10,10}}, rotation = 90)));
   Modelica.Mechanics.Rotational.Components.Fixed fixed1 annotation(Placement(visible = true, transformation(origin = {60,-40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper1 annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 90)));
-  Modelica.Electrical.Analog.Interfaces.Pin pin annotation(Placement(visible = true, transformation(origin = {-100,80}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Interfaces.Pin pin1 annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Interfaces.Pin pin2 annotation(Placement(visible = true, transformation(origin = {-100,40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor resistor1 annotation(Placement(visible = true, transformation(origin = {-80,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput position annotation(Placement(visible = true, transformation(origin = {40,100}, extent = {{-10,-10},{10,10}}, rotation = 90), iconTransformation(origin = {40,100}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Electrical.Analog.Interfaces.Pin pin annotation(Placement(visible = true, transformation(origin = {-100,80}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Electrical.Analog.Interfaces.Pin pin1 annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Electrical.Analog.Interfaces.Pin pin2 annotation(Placement(visible = true, transformation(origin = {-100,40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b flange_b annotation(Placement(visible = true, transformation(origin = {100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
 equation
+  connect(anglesensor1.phi,position) annotation(Line(points = {{20,51},{20,65.8446},{39.9507,65.8446},{40,100},{40,100}}));
   connect(pin,resistor1.p) annotation(Line(points = {{-100,80},{-89.7657,80},{-90,80},{-90,80}}));
   connect(resistor1.n,inductor1.p) annotation(Line(points = {{-70,80},{-39.7041,80},{-40,70},{-40,70}}));
   connect(resistor2.p,pin1) annotation(Line(points = {{-90,60},{-98.1504,60},{-98.1504,59.4328},{-98.1504,59.4328}}));
@@ -29,5 +31,5 @@ equation
   connect(inductor3.n,emf31.P2) annotation(Line(points = {{6.12323e-16,-10},{6.12323e-16,-56.7201},{-1.47965,-56.7201},{-1.47965,-56.7201}}));
   connect(inductor3.p,resistor3.n) annotation(Line(points = {{-6.12323e-16,10},{-6.12323e-16,39.9507},{-50,40},{-70,40}}));
   connect(resistor2.n,inductor2.p) annotation(Line(points = {{-70,60},{-19.7287,60},{-20,30},{-20,30}}));
-  annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+  annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {71.3449,0.15}, fillColor = {188,188,188}, fillPattern = FillPattern.HorizontalCylinder, extent = {{28.66,9.6},{-26.83,-10.21}}),Rectangle(origin = {-1.18659,-0.273171}, fillColor = {192,0,0}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-51.37,51.98},{51.37,-51.98}}),Line(origin = {40.2439,69.66459999999999}, points = {{0,22.7134},{0,-22.7134}}),Line(origin = {-74.6951,51.2195}, points = {{-22.2561,9.451219999999999},{22.2561,-9.451219999999999}}),Line(origin = {-73.628,-1.21951}, points = {{-21.189,2.22045e-16},{21.189,2.22045e-16}}),Line(origin = {-71.7988,-49.5427}, points = {{-19.3598,-9.90854},{19.3598,9.90854}})}));
 end BrushlessMotor;
