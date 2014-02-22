@@ -1,25 +1,31 @@
 model emf3
+  import pi = Modelica.Constants.pi;
+  import SI = Modelica.SIunits;
   parameter Boolean useSupport = false "= true, if support flange enabled, otherwise implicitly grounded" annotation(Evaluate = true, HideResult = true, choices(checkBox = true));
-  parameter SI.ElectricalTorqueConstant k(start = 1);
+  parameter Modelica.SIunits.ElectricalTorqueConstant kt(start = 1);
+  parameter Integer p = 2;
+  SI.ElectricalTorqueConstant k;
+  SI.ElectricalTorqueConstant k0;
+  SI.ElectricalTorqueConstant k1;
+  SI.ElectricalTorqueConstant k2;
+  SI.Voltage vn;
+  SI.Voltage e0;
+  SI.Voltage e1;
+  SI.Voltage e2;
+  SI.AngularVelocity w;
   Modelica.Mechanics.Rotational.Interfaces.Flange_b flange_b annotation(Placement(visible = true, transformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Interfaces.Support support1 if useSupport annotation(Placement(visible = true, transformation(origin = {0,-100}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.Pin P0 annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-80,100}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.Pin P1 annotation(Placement(visible = true, transformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {0,100}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.Pin P2 annotation(Placement(visible = true, transformation(origin = {-100,-60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {80,100}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-protected
-  Modelica.Mechanics.Rotational.Interfaces.InternalSupport internalsupport1 annotation(Placement(visible = true, transformation(origin = {0,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Components.Fixed fixed1 if not useSupport annotation(Placement(visible = true, transformation(origin = {40,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
 equation
-  connect(internalsupport1.flange,support1) annotation(Line(points = {{0,-60},{-0.9146339999999999,-60},{-0.9146339999999999,-96.9512},{-0.9146339999999999,-96.9512}}));
-  connect(fixed1.flange,internalsupport1.flange) annotation(Line(points = {{40,-80},{39.3293,-80},{39.3293,-60.061},{0,-60.061},{0,-60.061}}));
   0 = P0.i + P1.i + P2.i;
   0 = vn + e0 - P0.v;
   0 = vn + e1 - P1.v;
   0 = vn + e2 - P2.v;
   k = 2 * kt / 3;
   k0 = k * sin(p * flange_b.phi);
-  k1 = k * sin(p * flange_b.phi - 2 / 3 * PI);
-  k2 = k * sin(p * flange_b.phi - 4 / 3 * PI);
+  k1 = k * sin(p * flange_b.phi - 2 / 3 * pi);
+  k2 = k * sin(p * flange_b.phi - 4 / 3 * pi);
   e0 = k0 * w;
   e1 = k1 * w;
   e2 = k2 * w;

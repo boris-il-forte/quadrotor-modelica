@@ -1,5 +1,4 @@
 model BrushlessMotor
-  emf3 emf31 annotation(Placement(visible = true, transformation(origin = {-20,-80}, extent = {{-23.125,-23.125},{23.125,23.125}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor resistor2 annotation(Placement(visible = true, transformation(origin = {-80,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Resistor resistor3 annotation(Placement(visible = true, transformation(origin = {-80,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Basic.Inductor inductor1 annotation(Placement(visible = true, transformation(origin = {-40,60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
@@ -10,12 +9,18 @@ model BrushlessMotor
   Modelica.Mechanics.Rotational.Components.Fixed fixed1 annotation(Placement(visible = true, transformation(origin = {60,-40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Components.Damper damper1 annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 90)));
   Modelica.Electrical.Analog.Basic.Resistor resistor1 annotation(Placement(visible = true, transformation(origin = {-80,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput position annotation(Placement(visible = true, transformation(origin = {40,100}, extent = {{-10,-10},{10,10}}, rotation = 90), iconTransformation(origin = {40,100}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.Pin pin annotation(Placement(visible = true, transformation(origin = {-100,80}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.Pin pin1 annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Interfaces.Pin pin2 annotation(Placement(visible = true, transformation(origin = {-100,40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.Rotational.Interfaces.Flange_b flange_b annotation(Placement(visible = true, transformation(origin = {100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput position annotation(Placement(visible = true, transformation(origin = {40,100}, extent = {{-10,-10},{10,10}}, rotation = 90), iconTransformation(origin = {40,100}, extent = {{-10,-10},{10,10}}, rotation = 90)));
+  emf3 emf31 annotation(Placement(visible = true, transformation(origin = {-17.5,-77.5}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
 equation
+  connect(anglesensor1.flange,emf31.flange_b) annotation(Line(points = {{20,30},{20,-76.7196},{1.0582,-76.7196},{1.0582,-76.7196}}));
+  connect(emf31.flange_b,inertia1.flange_a) annotation(Line(points = {{0,-77.5},{29.7735,-77.5},{29.7735,-79.9353},{29.7735,-79.9353}}));
+  connect(inductor3.n,emf31.P2) annotation(Line(points = {{6.12323e-16,-10},{6.12323e-16,-59.5469},{-3.8835,-59.5469},{-3.8835,-59.5469}}));
+  connect(emf31.P1,inductor2.n) annotation(Line(points = {{-17.5,-60},{-19.7411,-60},{-19.7411,10.0324},{-19.7411,10.0324}}));
+  connect(inductor1.n,emf31.P0) annotation(Line(points = {{-40,50},{-40,-59.5469},{-31.3916,-59.5469},{-31.3916,-59.5469}}));
   connect(anglesensor1.phi,position) annotation(Line(points = {{20,51},{20,65.8446},{39.9507,65.8446},{40,100},{40,100}}));
   connect(pin,resistor1.p) annotation(Line(points = {{-100,80},{-89.7657,80},{-90,80},{-90,80}}));
   connect(resistor1.n,inductor1.p) annotation(Line(points = {{-70,80},{-39.7041,80},{-40,70},{-40,70}}));
@@ -23,12 +28,7 @@ equation
   connect(resistor3.p,pin2) annotation(Line(points = {{-90,40},{-99.8767,40},{-99.8767,39.4575},{-99.8767,39.4575}}));
   connect(damper1.flange_b,inertia1.flange_a) annotation(Line(points = {{60,10},{60,16.0296},{29.5931,16.0296},{29.5931,-79.4081},{29.5931,-79.4081}}));
   connect(damper1.flange_a,fixed1.flange) annotation(Line(points = {{60,-10},{60,-39.7041},{60.1726,-39.7041},{60.1726,-39.7041}}));
-  connect(emf31.flange_b,anglesensor1.flange) annotation(Line(points = {{3.125,-80},{20.2219,-80},{20.2219,30.0863},{20.2219,30.0863}}));
   connect(inertia1.flange_b,flange_b) annotation(Line(points = {{50,-80},{72.2565,-80},{72.2565,19.9753},{98.8903,19.9753},{98.8903,19.9753}}));
-  connect(emf31.flange_b,inertia1.flange_a) annotation(Line(points = {{3.125,-80},{29.3465,-80},{29.3465,-79.65470000000001},{29.3465,-79.65470000000001}}));
-  connect(emf31.P0,inductor1.n) annotation(Line(points = {{-38.5,-56.875},{-40.1973,-56.875},{-40.1973,50.0617},{-40.1973,50.0617}}));
-  connect(inductor2.n,emf31.P1) annotation(Line(points = {{-20,10},{-20,-57.4599},{-18.9889,-57.4599},{-18.9889,-57.4599}}));
-  connect(inductor3.n,emf31.P2) annotation(Line(points = {{6.12323e-16,-10},{6.12323e-16,-56.7201},{-1.47965,-56.7201},{-1.47965,-56.7201}}));
   connect(inductor3.p,resistor3.n) annotation(Line(points = {{-6.12323e-16,10},{-6.12323e-16,39.9507},{-50,40},{-70,40}}));
   connect(resistor2.n,inductor2.p) annotation(Line(points = {{-70,60},{-19.7287,60},{-20,30},{-20,30}}));
   annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {71.3449,0.15}, fillColor = {188,188,188}, fillPattern = FillPattern.HorizontalCylinder, extent = {{28.66,9.6},{-26.83,-10.21}}),Rectangle(origin = {-1.18659,-0.273171}, fillColor = {192,0,0}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-51.37,51.98},{51.37,-51.98}}),Line(origin = {40.2439,69.66459999999999}, points = {{0,22.7134},{0,-22.7134}}),Line(origin = {-74.6951,51.2195}, points = {{-22.2561,9.451219999999999},{22.2561,-9.451219999999999}}),Line(origin = {-73.628,-1.21951}, points = {{-21.189,2.22045e-16},{21.189,2.22045e-16}}),Line(origin = {-71.7988,-49.5427}, points = {{-19.3598,-9.90854},{19.3598,9.90854}})}));
