@@ -1,11 +1,16 @@
 model Prova2
-  Modelica.Electrical.Analog.Sources.ConstantVoltage constantvoltage1 annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-12.5,-12.5},{12.5,12.5}}, rotation = 0)));
+  import Modelica.Mechanics.MultiBody.World;
+  import Modelica.Electrical.Analog.Sources.ConstantVoltage;
+  import Modelica.Electrical.Analog.Basic.Ground;
+  import Modelica.Mechanics.Rotational.Components.LossyGear;
+  import Modelica.Mechanics.Rotational.Sensors.*;
+  ConstantVoltage constantvoltage1 annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
+  Ground ground1 annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-12.5,-12.5},{12.5,12.5}}, rotation = 0)));
   Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 314) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
-  inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Components.LossyGear lossygear1(ratio = 1) annotation(Placement(visible = true, transformation(origin = {5,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Sensors.AngleSensor angle annotation(Placement(visible = true, transformation(origin = {60,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.Rotational.Sensors.SpeedSensor angularSpeed annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  inner World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  LossyGear lossygear1(ratio = 1) annotation(Placement(visible = true, transformation(origin = {5,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
+  AngleSensor angle annotation(Placement(visible = true, transformation(origin = {60,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  SpeedSensor angularSpeed annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Rotor rotor1 annotation(Placement(visible = true, transformation(origin = {20,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
 equation
   connect(rotor1.frame_b,world.frame_b) annotation(Line(points = {{10,-60},{10,-60.2291},{-49.7545,-60.2291},{-49.7545,-60.2291}}));
@@ -20,3 +25,4 @@ equation
   connect(ground1.p,constantvoltage1.n) annotation(Line(points = {{-60,92.5},{-70.4268,92.5},{-70.4268,60.6707},{-70.4268,60.6707}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end Prova2;
+
