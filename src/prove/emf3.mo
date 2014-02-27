@@ -1,5 +1,5 @@
 model emf3
-  import pi = Modelica.Constants.pi;
+  import Modelica.Constants.pi;
   import SI = Modelica.SIunits;
   import Modelica.Mechanics.Rotational.Interfaces.*;
   import Modelica.Electrical.Analog.Interfaces.Pin;
@@ -35,4 +35,3 @@ equation
   flange_b.tau = -(k0 * P0.i + k1 * P1.i + k2 * P2.i);
   annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-3.96,-0.15}, fillColor = {205,205,205}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-85,10},{-35,-10}}),Rectangle(fillColor = {205,205,205}, fillPattern = FillPattern.HorizontalCylinder, extent = {{35,10},{100,-10}}),Line(origin = {-51.41,54.98}, points = {{-28.4929,39.7136},{27.9806,-39.2013},{28.4738,-39.6946}}, color = {0,0,255}),Line(origin = {-1.6,55.98}, points = {{-0.123305,38.2244},{0.123305,-38.2244},{0.123305,-38.2244}}, color = {0,0,255}),Line(origin = {49.32,54.5}, points = {{31.0727,40.1973},{-31.0727,-40.1973}}, color = {0,0,255}),Ellipse(fillColor = {245,245,245}, fillPattern = FillPattern.Solid, extent = {{-40,40},{40,-40}}, endAngle = 360),Text(origin = {2.34185,-62.2664}, extent = {{-85.94,-22.81},{85.94,22.81}}, textString = "%name")}));
 end emf3;
-
