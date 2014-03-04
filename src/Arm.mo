@@ -21,7 +21,6 @@ equation
   connect(bodycylinder1.frame_b,rotor1.frame) annotation(Line(points = {{-44.375,-60},{78.4211,-60},{78.4211,-16.3158},{78.4211,-16.3158}}));
   connect(rotor1.flange,lossygear1.flange_b) annotation(Line(points = {{65,0},{35.7895,0},{35.7895,0.526316},{35.7895,0.526316}}));
   connect(lossygear1.flange_b,anglesensor1.flange) annotation(Line(points = {{35,0},{35.3659,0},{35.3659,80.1829},{-30.1829,80.1829},{-30.1829,80.1829}}));
-  connect(lossygear1.support,dcpm.support) annotation(Line(points = {{20,-15},{19.2073,-15},{19.2073,-20.122},{-21.9512,-20.122},{-21.9512,-18.5976},{-21.9512,-18.5976}}));
   connect(dcpm.flange,lossygear1.flange_a) annotation(Line(points = {{-20,0},{3.65854,0},{3.65854,0},{3.65854,0}}));
   connect(anglesensor1.phi,position) annotation(Line(points = {{-51,80},{-93.5976,80},{-93.5976,79.5732},{-93.5976,79.5732}}));
   connect(pin_n,dcpm.pin_an) annotation(Line(points = {{-100,20},{-53.1579,20},{-53.1579,20},{-53.1579,20}}));
