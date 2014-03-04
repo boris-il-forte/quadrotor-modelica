@@ -1,7 +1,7 @@
 model Prova3
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-80,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.BodyCylinder bodycylinder1 annotation(Placement(visible = true, transformation(origin = {-40,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedrotation1(angle = 90) annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedrotation1(angle = 90, n = {0,1,0}) annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Forces.WorldForce force(resolveInFrame = Modelica.Mechanics.MultiBody.Types.ResolveInFrameB.frame_b) annotation(Placement(visible = true, transformation(origin = {60,20}, extent = {{10,-10},{-10,10}}, rotation = 360)));
   Modelica.Blocks.Sources.Constant const(k = 0) annotation(Placement(visible = true, transformation(origin = {0,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant constant1(k = 10) annotation(Placement(visible = true, transformation(origin = {60,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
@@ -14,3 +14,4 @@ equation
   connect(bodycylinder1.frame_a,world.frame_b) annotation(Line(points = {{-50,20},{-30.0863,20},{-70,20},{-70,20}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end Prova3;
+
