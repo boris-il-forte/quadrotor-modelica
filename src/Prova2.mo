@@ -13,8 +13,8 @@ model Prova2
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Rotor rotor1 annotation(Placement(visible = true, transformation(origin = {40,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
 equation
-  connect(world.frame_b,rotor1.frame) annotation(Line(points = {{-50,-60},{30,-60},{30,-60},{30,-60}}));
-  connect(rotor1.flange,lossygear1.flange_b) annotation(Line(points = {{40,-50},{40,14.7368},{21.0526,14.7368},{21.0526,14.7368}}));
+  connect(rotor1.frame,world.frame_b) annotation(Line(points = {{30,-60},{30,-59.4512},{-50.3049,-59.4512},{-50.3049,-59.4512}}));
+  connect(rotor1.flange,lossygear1.flange_b) annotation(Line(points = {{40,-50},{40,15.2439},{20.4268,15.2439},{20.4268,15.2439}}));
   connect(lossygear1.flange_b,angle.flange) annotation(Line(points = {{20,15},{20.4268,15},{20.4268,40.2439},{50,40.2439},{50,40.2439}}));
   connect(angularSpeed.flange,lossygear1.flange_b) annotation(Line(points = {{50,0},{20.4268,0},{20.4268,15.2439},{20.4268,15.2439}}));
   connect(dcpm.flange,lossygear1.flange_a) annotation(Line(points = {{-40,15},{-10.6707,15},{-10.6707,14.6341},{-10.6707,14.6341}}));
@@ -23,4 +23,3 @@ equation
   connect(ground1.p,constantvoltage1.n) annotation(Line(points = {{-60,92.5},{-70.4268,92.5},{-70.4268,60.6707},{-70.4268,60.6707}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end Prova2;
-
