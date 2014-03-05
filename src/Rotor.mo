@@ -4,7 +4,7 @@ model Rotor
   import Modelica.Mechanics.Rotational.Components.Inertia;
   import Modelica.Mechanics.MultiBody.Parts.Body;
   import Modelica.SIunits.*;
-  parameter Angle alpha = 10 "The angle of the rotor blades";
+  parameter Angle alpha = Conversions.from_deg(10) "The angle of the rotor blades";
   parameter Real bd[3] = {9.96e-09,2.46e-10,4.33e-07};
   parameter Real bl = 3.88e-07;
   Flange_a flange annotation(Placement(visible = true, transformation(origin = {-100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
