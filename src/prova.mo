@@ -8,11 +8,13 @@ model prova
   Force L "The lift produced by the rotor";
   Torque Tl "The Drag produced by the rotor";
   AngularVelocity w "The angular velocity of the rotor";
+  Modelica.Mechanics.Rotational.Interfaces.InternalSupport internalsupport annotation(Placement(visible = true, transformation(origin = {-60,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
 equation
-  w = der(inertia.flange_b.phi);
+  w = der(inertia.flange_a.phi);
   L = alpha * bl * w ^ 2;
   Tl = bd[1] * w ^ 2 + bd[2] * w ^ 2 * alpha ^ 2 + bd[3] * w * alpha;
-  0 = Tl + inertia.flange_b.tau;
+  internalsupport.tau = Tl;
+  connect(internalsupport.flange,inertia.flange_a) annotation(Line(points = {{-60,40},{-30.7927,40},{-30.7927,39.939},{-30.7927,39.939}}));
   connect(flange_a,inertia.flange_b) annotation(Line(points = {{0,100},{9.451219999999999,100},{9.5122,40.061},{-10,40}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end prova;
