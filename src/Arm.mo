@@ -9,10 +9,10 @@ model Arm
   import Modelica.SIunits.*;
   parameter Length length = 0.2 "Lenght of the arm";
   parameter Length diameter = 0.01 "Diameter of the arm";
-  parameter Mass mass = 1 "Mass of the arm";
+  parameter Mass mass = 0.18 "Mass of the arm";
   parameter Voltage motorVoltage = 12 "Motor nominal voltage";
-  parameter Current motorCurrent = 20 "Motor nominal current";
-  parameter AngularVelocity motorVelocity = 700 "Motor nominal angular velocity";
+  parameter Current motorCurrent = 1 "Motor nominal current";
+  parameter AngularVelocity motorVelocity = 1200 "Motor nominal angular velocity";
   parameter Inertia motorInertia = 0.002 "Motor nominal inertia";
   parameter Real liftCoefficient = 3.88e-07 "Lift coefficient";
   parameter Real dragCoefficients[3] = {9.96e-09,2.46e-10,4.33e-07} "Drag coefficients";
@@ -39,4 +39,3 @@ equation
   connect(frame_a,bodycylinder1.frame_a) annotation(Line(points = {{-100,-60},{-76.3158,-60},{-76.3158,-58.9474},{-76.3158,-58.9474}}));
   annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-16.55,8.98}, fillColor = {0,0,255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-79.68000000000001,1.32},{66.56999999999999,-20.22}}),Rectangle(origin = {60.3372,-36.964}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-18.95,5},{18.95,-5}}),Rectangle(origin = {60.5234,36.0719}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-18.95,5},{18.95,-5}}),Ellipse(origin = {47.2654,-71.86620000000001}, rotation = -90, fillColor = {71,71,71}, fillPattern = FillPattern.Sphere, extent = {{-91.5763,32.8989},{-52.6342,-7.10947}}, endAngle = 360)}));
 end Arm;
-
