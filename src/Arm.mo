@@ -8,21 +8,24 @@ model Arm
   import Modelica.Mechanics.Rotational.Components.LossyGear;
   parameter Modelica.SIunits.Length length = 0.2;
   parameter Modelica.SIunits.Length diameter = 0.01;
-  DC_PermanentMagnet dcpm(VaNominal = 5, IaNominal = 0.25, wNominal = 314) annotation(Placement(visible = true, transformation(origin = {-40,0}, extent = {{-20,-20},{20,20}}, rotation = 0)));
+  DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 20, wNominal = 700, useSupport = true, Jr = 0.2) annotation(Placement(visible = true, transformation(origin = {-40,0}, extent = {{-20,-20},{20,20}}, rotation = 0)));
   BodyCylinder bodycylinder1(r = {length,0,0}, diameter = diameter) annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-15.625,-15.625},{15.625,15.625}}, rotation = 0)));
   Frame_a frame_a annotation(Placement(visible = true, transformation(origin = {-100,-60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0), iconTransformation(origin = {-100,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   PositivePin pin_p annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   NegativePin pin_n annotation(Placement(visible = true, transformation(origin = {-100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  AngleSensor anglesensor1 annotation(Placement(visible = true, transformation(origin = {-40,80}, extent = {{10,-10},{-10,10}}, rotation = 0)));
   RealOutput position annotation(Placement(visible = true, transformation(origin = {-100,80}, extent = {{10,-10},{-10,10}}, rotation = 360), iconTransformation(origin = {-100,-20}, extent = {{10,-10},{-10,10}}, rotation = 0)));
   LossyGear lossygear1(ratio = 1) annotation(Placement(visible = true, transformation(origin = {20,0}, extent = {{-15,-15},{15,15}}, rotation = 0)));
   Rotor rotor1 annotation(Placement(visible = true, transformation(origin = {80,0}, extent = {{-15,-15},{15,15}}, rotation = 0)));
+  Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1d1(n = {0,1,0}) annotation(Placement(visible = true, transformation(origin = {0,-40}, extent = {{10,-10},{-10,10}}, rotation = 360)));
+  Modelica.Mechanics.Rotational.Sensors.SpeedSensor speedsensor1 annotation(Placement(visible = true, transformation(origin = {0,80}, extent = {{10,-10},{-10,10}}, rotation = 0)));
 equation
+  connect(speedsensor1.flange,lossygear1.flange_b) annotation(Line(points = {{10,80},{35.2632,80},{35.2632,0.526316},{35.2632,0.526316}}));
+  connect(speedsensor1.w,position) annotation(Line(points = {{-11,80},{-92.1053,80},{-92.1053,80.52630000000001},{-92.1053,80.52630000000001}}));
+  connect(mounting1d1.frame_a,bodycylinder1.frame_b) annotation(Line(points = {{-2.44929e-15,-50},{0.526316,-50},{0.526316,-58.9474},{-44.7368,-58.9474},{-44.7368,-58.9474}}));
+  connect(dcpm.support,mounting1d1.flange_b) annotation(Line(points = {{-20,-20},{-20,-20},{-20,-39.4737},{-11.0526,-39.4737},{-11.0526,-39.4737}}));
   connect(bodycylinder1.frame_b,rotor1.frame) annotation(Line(points = {{-44.375,-60},{78.4211,-60},{78.4211,-16.3158},{78.4211,-16.3158}}));
   connect(rotor1.flange,lossygear1.flange_b) annotation(Line(points = {{65,0},{35.7895,0},{35.7895,0.526316},{35.7895,0.526316}}));
-  connect(lossygear1.flange_b,anglesensor1.flange) annotation(Line(points = {{35,0},{35.3659,0},{35.3659,80.1829},{-30.1829,80.1829},{-30.1829,80.1829}}));
   connect(dcpm.flange,lossygear1.flange_a) annotation(Line(points = {{-20,0},{3.65854,0},{3.65854,0},{3.65854,0}}));
-  connect(anglesensor1.phi,position) annotation(Line(points = {{-51,80},{-93.5976,80},{-93.5976,79.5732},{-93.5976,79.5732}}));
   connect(pin_n,dcpm.pin_an) annotation(Line(points = {{-100,20},{-53.1579,20},{-53.1579,20},{-53.1579,20}}));
   connect(pin_p,dcpm.pin_ap) annotation(Line(points = {{-100,60},{-27.8947,60},{-27.8947,22.1053},{-27.8947,22.1053}}));
   connect(frame_a,bodycylinder1.frame_a) annotation(Line(points = {{-100,-60},{-76.3158,-60},{-76.3158,-58.9474},{-76.3158,-58.9474}}));
