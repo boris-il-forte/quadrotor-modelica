@@ -1,7 +1,7 @@
 model Quadrotor
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Chassis chassis1 annotation(Placement(visible = true, transformation(origin = {0,0}, extent = {{-26.25,-26.25},{26.25,26.25}}, rotation = 0)));
-  Modelica.Electrical.Analog.Sources.ConstantVoltage constantvoltage1 annotation(Placement(visible = true, transformation(origin = {-80,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
+  Modelica.Electrical.Analog.Sources.ConstantVoltage constantvoltage1(V = 12) annotation(Placement(visible = true, transformation(origin = {-80,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
   Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(visible = true, transformation(origin = {-80,-100}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Arm arm2 annotation(Placement(visible = true, transformation(origin = {-60,0}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = 0)));
   Arm arm3 annotation(Placement(visible = true, transformation(origin = {0,-60}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = -90)));
@@ -23,4 +23,3 @@ equation
   connect(ground1.p,constantvoltage1.n) annotation(Line(points = {{-80,-90},{-80,-90},{-80,-69.47369999999999},{-80,-69.47369999999999}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end Quadrotor;
-
