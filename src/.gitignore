@@ -1,0 +1,11 @@
+*.o
+*.h
+*.c
+*.makefile
+*_info.xml
+*_init.xml
+*_res.mat
+*.log
+*.libs
+
+Visualize_Quadrotor

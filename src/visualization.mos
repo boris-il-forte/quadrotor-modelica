@@ -12,5 +12,5 @@ model Visualize_Quadrotor
   extends Quadrotor; 
 end Visualize_Quadrotor; 
 "); 
-simulate(Visualize_Quadrotor,stopTime=10, tolerance=1e-12); getErrorString(); 
+simulate(Visualize_Quadrotor,stopTime=10, tolerance=1e-12, method="dasslwort"); getErrorString(); 
 
