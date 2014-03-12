@@ -4,6 +4,7 @@ model ArmTest
   import Modelica.Mechanics.MultiBody.World;
   import Modelica.Electrical.Analog.Sources.ConstantVoltage;
   import Modelica.Electrical.Analog.Basic.Ground;
+  import Multirotor.Basics.Arm;
   Ground ground1 annotation(Placement(visible = true, transformation(origin = {-80,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Electrical.Analog.Sources.ConstantVoltage constantvoltage1(V = 12) annotation(Placement(visible = true, transformation(origin = {-80,-40}, extent = {{-10,-10},{10,10}}, rotation = -90)));
   inner Modelica.Mechanics.MultiBody.World world(g = 9.81) annotation(Placement(visible = true, transformation(origin = {-80,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));

@@ -6,6 +6,7 @@ model RotorTest
   import Modelica.Electrical.Analog.Basic.Ground;
   import Modelica.Mechanics.Rotational.Components.LossyGear;
   import Modelica.Mechanics.Rotational.Sensors.*;
+  import Multirotor.Basics.Rotor;
   ConstantVoltage constantvoltage1 annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
   Ground ground1 annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-12.5,-12.5},{12.5,12.5}}, rotation = 0)));
   Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 314) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
