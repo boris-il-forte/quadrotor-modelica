@@ -1,3 +1,4 @@
+within Multirotor.Basics;
 model Arm
   import Modelica.Electrical.Machines.BasicMachines.QuasiStationaryDCMachines.DC_PermanentMagnet;
   import Modelica.Mechanics.MultiBody.Parts.BodyCylinder;

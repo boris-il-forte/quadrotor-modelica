@@ -1,3 +1,4 @@
+within Multirotor.Basics;
 model Chassis
   import Modelica.SIunits.Mass;
   parameter Mass mass = 0.78 "Mass of the chassis (central body)";

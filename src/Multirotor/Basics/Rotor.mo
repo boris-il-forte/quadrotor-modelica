@@ -1,3 +1,4 @@
+within Multirotor.Basics;
 model Rotor
   import Modelica.Mechanics.Rotational.Interfaces.*;
   import Modelica.Mechanics.MultiBody.Interfaces.*;
