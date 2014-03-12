@@ -12,7 +12,7 @@ model Arm
   parameter Mass mass = 0.18 "Mass of the arm";
   parameter Voltage motorVoltage = 12 "Motor nominal voltage";
   parameter Current motorCurrent = 1 "Motor nominal current";
-  parameter AngularVelocity motorVelocity = 1200 "Motor nominal angular velocity";
+  parameter AngularVelocity motorVelocity = 1100 "Motor nominal angular velocity";
   parameter Inertia motorInertia = 0.002 "Motor nominal inertia";
   parameter Real liftCoefficient = 3.88e-07 "Lift coefficient";
   parameter Real dragCoefficients[3] = {9.96e-09,2.46e-10,4.33e-07} "Drag coefficients";
