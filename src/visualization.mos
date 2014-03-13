@@ -1,7 +1,4 @@
-loadFile("Quadrotor.mo");  getErrorString(); 
-loadFile("Rotor.mo");  getErrorString(); 
-loadFile("Arm.mo");  getErrorString(); 
-loadFile("Chassis.mo");  getErrorString(); 
+loadFile("Multirotor/package.mo");  getErrorString(); 
 loadModelica3D(); 
 loadString(" 
 partial model Visualization 
@@ -9,7 +6,7 @@ inner ModelicaServices.Modelica3D.Controller m3d_control;
 end Visualization; 
 model Visualize_Quadrotor  
   extends Visualization; 
-  extends Quadrotor; 
+  extends Multirotor.Basics.Quadrotor; 
 end Visualize_Quadrotor; 
 "); 
 simulate(Visualize_Quadrotor,stopTime=10, tolerance=1e-12, method="dasslwort"); getErrorString(); 

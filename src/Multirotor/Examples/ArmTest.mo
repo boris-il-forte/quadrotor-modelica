@@ -16,3 +16,4 @@ equation
   connect(arm1.frame_a,world.frame_b) annotation(Line(points = {{-5,20},{-70,20},{-70,20.5263},{-70,20.5263}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end ArmTest;
+

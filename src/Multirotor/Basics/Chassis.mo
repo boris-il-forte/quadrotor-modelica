@@ -20,3 +20,4 @@ equation
   connect(fixedrotation3.frame_b,frame_W) annotation(Line(points = {{50,0},{99.6951,0},{99.6951,0.609756},{99.6951,0.609756}}));
   annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Ellipse(origin = {-0.15,-0.46}, fillColor = {3,104,255}, fillPattern = FillPattern.CrossDiag, extent = {{99.54000000000001,99.54000000000001},{-99.54000000000001,-99.54000000000001}}, endAngle = 360),Rectangle(origin = {0.15,0}, fillColor = {40,40,255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-97.09999999999999,10.06},{97.09999999999999,-10.06}}),Rectangle(origin = {1.07,2.74057}, fillColor = {0,0,255}, fillPattern = FillPattern.VerticalCylinder, extent = {{-10.1511,96.15940000000001},{8.69,-100.3}})}));
 end Chassis;
+
