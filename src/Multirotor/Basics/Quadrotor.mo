@@ -24,3 +24,4 @@ equation
   connect(ground1.p,constantvoltage1.n) annotation(Line(points = {{-80,-90},{-80,-90},{-80,-69.47369999999999},{-80,-69.47369999999999}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end Quadrotor;
+

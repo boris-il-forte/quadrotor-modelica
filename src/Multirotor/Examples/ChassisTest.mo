@@ -16,3 +16,4 @@ equation
   connect(bodycylinder1.frame_b,chassis1.frame_E) annotation(Line(points = {{-30,0},{-10.8865,0},{-10.8865,0},{-10.8865,0}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {4,4})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {4,4})));
 end ChassisTest;
+
