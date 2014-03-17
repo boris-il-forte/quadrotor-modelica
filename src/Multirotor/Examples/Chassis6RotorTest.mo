@@ -1,7 +1,7 @@
 within Multirotor.Examples;
 model Chassis6RotorTest
   extends Modelica.Icons.Example;
-  import import Multirotor.Basics.ChassisNRotor;
+  import Multirotor.Basics.ChassisNRotor;
   import Modelica.Mechanics.MultiBody.Parts.BodyCylinder;
   inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-80,-40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   ChassisNRotor chassisnrotor1(N = 6) annotation(Placement(visible = true, transformation(origin = {40,-80}, extent = {{-10,-10},{10,10}}, rotation = 90)));
