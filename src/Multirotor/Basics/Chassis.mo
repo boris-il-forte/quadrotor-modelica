@@ -1,15 +1,18 @@
 within Multirotor.Basics;
 model Chassis
   import Modelica.SIunits.Mass;
+  import Modelica.Mechanics.MultiBody.Parts.FixedRotation;
+  import Modelica.Mechanics.MultiBody.Parts.Body;
+  import Modelica.Mechanics.MultiBody.Interfaces.Frame_a;
   parameter Mass mass = 0.78 "Mass of the chassis (central body)";
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedrotation2(n = {0,1,0}, angle = 270) annotation(Placement(visible = true, transformation(origin = {40,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedrotation1(n = {0,1,0}, angle = 180) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.FixedRotation fixedrotation3(n = {0,1,0}, angle = 90) annotation(Placement(visible = true, transformation(origin = {40,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Parts.Body body(m = mass) annotation(Placement(visible = true, transformation(origin = {-40,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
-  Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_N annotation(Placement(visible = true, transformation(origin = {100,-40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {0,100}, extent = {{-10,-10},{10,10}}, rotation = -90)));
-  Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_E annotation(Placement(visible = true, transformation(origin = {100,80}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_S annotation(Placement(visible = true, transformation(origin = {100,40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {0,-100}, extent = {{-10,-10},{10,10}}, rotation = -90)));
-  Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_W annotation(Placement(visible = true, transformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  FixedRotation fixedrotation2(n = {0,1,0}, angle = 270) annotation(Placement(visible = true, transformation(origin = {40,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  FixedRotation fixedrotation1(n = {0,1,0}, angle = 180) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  FixedRotation fixedrotation3(n = {0,1,0}, angle = 90) annotation(Placement(visible = true, transformation(origin = {40,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Body body(m = mass) annotation(Placement(visible = true, transformation(origin = {-40,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
+  Frame_a frame_N annotation(Placement(visible = true, transformation(origin = {100,-40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {0,100}, extent = {{-10,-10},{10,10}}, rotation = -90)));
+  Frame_a frame_E annotation(Placement(visible = true, transformation(origin = {100,80}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Frame_a frame_S annotation(Placement(visible = true, transformation(origin = {100,40}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {0,-100}, extent = {{-10,-10},{10,10}}, rotation = -90)));
+  Frame_a frame_W annotation(Placement(visible = true, transformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
 equation
   connect(body.frame_a,fixedrotation2.frame_a) annotation(Line(points = {{-40,-50},{-40,80.1829},{29.2683,80.1829},{29.2683,80.1829}}));
   connect(body.frame_a,fixedrotation1.frame_a) annotation(Line(points = {{-40,-50},{-40,40.8537},{30.1829,40.8537},{30.1829,40.8537}}));
