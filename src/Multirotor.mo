@@ -199,10 +199,10 @@ package Multirotor
     equation
       for i in 1:N loop
       connect(setPoint[i],PID[i].u_s);
-      connect(bus[N].sensor,abs[N].u);
-      connect(abs[N].u,PID[i].u_m);
-      connect(PID[i].y,gain[N].u);
-      connect(gain[N].y,bus[N].control);
+      connect(bus[i].sensor,abs[i].u);
+      connect(abs[i].u,PID[i].u_m);
+      connect(PID[i].y,gain[i].u);
+      connect(gain[i].y,bus[i].control);
 
       end for;
       annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-0.26,-0.26}, fillColor = {255,255,255}, fillPattern = FillPattern.Backward, extent = {{-99.20999999999999,99.73999999999999},{99.73999999999999,-99.73999999999999}}),Text(origin = {-2.63,6.32}, extent = {{-33.16,15.26},{33.16,-15.26}}, textString = "%name")}));
