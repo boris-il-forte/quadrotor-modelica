@@ -23,21 +23,22 @@ model Arm
   Rotor rotor1(bd = dragCoefficients, bl = liftCoefficient) annotation(Placement(visible = true, transformation(origin = {80,0}, extent = {{-15,-15},{15,15}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1d1(n = {0,1,0}) annotation(Placement(visible = true, transformation(origin = {0,-40}, extent = {{10,-10},{-10,10}}, rotation = 360)));
   Modelica.Mechanics.Rotational.Sensors.SpeedSensor speedsensor1 annotation(Placement(visible = true, transformation(origin = {0,80}, extent = {{10,-10},{-10,10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Interfaces.NegativePin pin_n annotation(Placement(visible = true, transformation(origin = {-100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
   Modelica.Mechanics.MultiBody.Interfaces.Frame_a frame_a annotation(Placement(visible = true, transformation(origin = {-100,-60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Electrical.Analog.Interfaces.PositivePin pin_p annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,-40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput position annotation(Placement(visible = true, transformation(origin = {-100,80}, extent = {{10,-10},{-10,10}}, rotation = 360), iconTransformation(origin = {-100,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
+  Modelica.Electrical.Analog.Basic.Ground ground1 annotation(Placement(visible = true, transformation(origin = {-80,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+  Modelica.Electrical.Analog.Sources.SignalVoltage signalvoltage1 annotation(Placement(visible = true, transformation(origin = {-40,40}, extent = {{10,-10},{-10,10}}, rotation = 0)));
+  Multirotor.Basics.Bus bus annotation(Placement(visible = true, transformation(origin = {-100,60}, extent = {{-15,-15},{15,15}}, rotation = -90), iconTransformation(origin = {-100,60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
 equation
+  connect(bus.control,signalvoltage1.v) annotation(Line(points = {{-100,60},{-100,57.3684},{-41.0526,57.3684},{-41.0526,47.8947},{-41.0526,47.8947}}));
+  connect(speedsensor1.w,bus.sensor) annotation(Line(points = {{-11,80},{-77.36839999999999,80},{-77.36839999999999,61.5789},{-98.9474,61.5789},{-98.9474,61.5789}}));
+  connect(signalvoltage1.n,ground1.p) annotation(Line(points = {{-50,40},{-80,40},{-80,10.5263},{-80,10.5263}}));
+  connect(signalvoltage1.p,dcpm.pin_ap) annotation(Line(points = {{-30,40},{-26.8421,40},{-26.8421,20},{-26.8421,20}}));
+  connect(signalvoltage1.n,dcpm.pin_an) annotation(Line(points = {{-50,40},{-53.1579,40},{-53.1579,20.5263},{-53.1579,20.5263}}));
   connect(speedsensor1.flange,lossygear1.flange_b) annotation(Line(points = {{10,80},{35.2632,80},{35.2632,0.526316},{35.2632,0.526316}}));
-  connect(speedsensor1.w,position) annotation(Line(points = {{-11,80},{-92.1053,80},{-92.1053,80.52630000000001},{-92.1053,80.52630000000001}}));
   connect(mounting1d1.frame_a,bodycylinder1.frame_b) annotation(Line(points = {{-2.44929e-15,-50},{0.526316,-50},{0.526316,-58.9474},{-44.7368,-58.9474},{-44.7368,-58.9474}}));
   connect(dcpm.support,mounting1d1.flange_b) annotation(Line(points = {{-20,-20},{-20,-20},{-20,-39.4737},{-11.0526,-39.4737},{-11.0526,-39.4737}}));
   connect(bodycylinder1.frame_b,rotor1.frame) annotation(Line(points = {{-44.375,-60},{78.4211,-60},{78.4211,-16.3158},{78.4211,-16.3158}}));
   connect(rotor1.flange,lossygear1.flange_b) annotation(Line(points = {{65,0},{35.7895,0},{35.7895,0.526316},{35.7895,0.526316}}));
   connect(dcpm.flange,lossygear1.flange_a) annotation(Line(points = {{-20,0},{3.65854,0},{3.65854,0},{3.65854,0}}));
-  connect(pin_n,dcpm.pin_an) annotation(Line(points = {{-100,20},{-53.1579,20},{-53.1579,20},{-53.1579,20}}));
-  connect(pin_p,dcpm.pin_ap) annotation(Line(points = {{-100,60},{-27.8947,60},{-27.8947,22.1053},{-27.8947,22.1053}}));
   connect(frame_a,bodycylinder1.frame_a) annotation(Line(points = {{-100,-60},{-76.3158,-60},{-76.3158,-58.9474},{-76.3158,-58.9474}}));
   annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-16.55,8.98}, fillColor = {0,0,255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-79.68000000000001,1.32},{66.56999999999999,-20.22}}),Rectangle(origin = {60.3372,-36.964}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-18.95,5},{18.95,-5}}),Rectangle(origin = {60.5234,36.0719}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-18.95,5},{18.95,-5}}),Ellipse(origin = {47.2654,-71.86620000000001}, rotation = -90, fillColor = {71,71,71}, fillPattern = FillPattern.Sphere, extent = {{-91.5763,32.8989},{-52.6342,-7.10947}}, endAngle = 360)}));
 end Arm;
-

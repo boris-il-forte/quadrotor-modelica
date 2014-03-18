@@ -29,4 +29,3 @@ equation
   connect(inertia.flange_a,flange) annotation(Line(points = {{-50,20},{-100.645,20},{-100.645,20.3226},{-100.645,20.3226}}));
   annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-40.26,0.79}, fillColor = {203,203,203}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-21.32,6.05},{21.32,-6.05}}),Rectangle(origin = {44.5982,1.55449}, fillColor = {203,203,203}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-21.32,6.05},{21.32,-6.05}}),Ellipse(origin = {-9.0989,-11.5018}, fillColor = {184,184,184}, fillPattern = FillPattern.Sphere, extent = {{-12.11,-12.63},{34.79,37.79}}, endAngle = 360)}));
 end Rotor;
-
