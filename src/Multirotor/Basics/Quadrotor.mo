@@ -13,4 +13,3 @@ equation
   connect(chassis1.frame_W,arm1.frame_a) annotation(Line(points = {{26.25,0},{37.3684,0},{37.5,1.05263},{37.5,0}}));
   annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
 end Quadrotor;
-
