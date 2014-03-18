@@ -119,14 +119,11 @@ package Multirotor
       import Modelica.Electrical.Analog.Sources.ConstantVoltage;
       import Modelica.Electrical.Analog.Basic.Ground;
       import Multirotor.Basics.Arm;
-      Ground ground1 annotation(Placement(visible = true, transformation(origin = {-80,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-      Modelica.Electrical.Analog.Sources.ConstantVoltage constantvoltage1(V = 12) annotation(Placement(visible = true, transformation(origin = {-80,-40}, extent = {{-10,-10},{10,10}}, rotation = -90)));
       inner Modelica.Mechanics.MultiBody.World world(g = 9.81) annotation(Placement(visible = true, transformation(origin = {-80,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       Arm arm1 annotation(Placement(visible = true, transformation(origin = {20,20}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Modelica.Blocks.Sources.Constant const(k = 12) annotation(Placement(visible = true, transformation(origin = {-40,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
     equation
-      connect(constantvoltage1.n,ground1.p) annotation(Line(points = {{-80,-50},{-80,-68.9474},{-79.47369999999999,-68.9474},{-79.47369999999999,-68.9474}}));
-      connect(arm1.pin_n,constantvoltage1.n) annotation(Line(points = {{-5,0},{-3.68421,0},{-3.68421,-50},{-80,-50},{-80,-50}}));
-      connect(constantvoltage1.p,arm1.pin_p) annotation(Line(points = {{-80,-30},{-80,11.0526},{-6.31579,11.0526},{-6.31579,11.0526}}));
+      connect(const.y,arm1.bus.control) annotation(Line(points = {{-29,40},{-11.2805,40},{-11.2805,34.7561},{-6.40244,34.7561},{-6.40244,34.7561}}));
       connect(arm1.frame_a,world.frame_b) annotation(Line(points = {{-5,20},{-70,20},{-70,20.5263},{-70,20.5263}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end ArmTest;
@@ -164,19 +161,26 @@ package Multirotor
       annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-40.26,0.79}, fillColor = {203,203,203}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-21.32,6.05},{21.32,-6.05}}),Rectangle(origin = {44.5982,1.55449}, fillColor = {203,203,203}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-21.32,6.05},{21.32,-6.05}}),Ellipse(origin = {-9.0989,-11.5018}, fillColor = {184,184,184}, fillPattern = FillPattern.Sphere, extent = {{-12.11,-12.63},{34.79,37.79}}, endAngle = 360)}));
     end Rotor;
     model Quadrotor
+      import Modelica.Blocks.Sources.Constant;
       inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       Chassis chassis1 annotation(Placement(visible = true, transformation(origin = {0,0}, extent = {{-26.25,-26.25},{26.25,26.25}}, rotation = 0)));
       Arm arm1 annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = 0)));
       Arm arm4 annotation(Placement(visible = true, transformation(origin = {0,60}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = -90)));
       Arm arm3 annotation(Placement(visible = true, transformation(origin = {0,-60}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = -90)));
       Arm arm2 annotation(Placement(visible = true, transformation(origin = {-60,0}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = 0)));
-      Controller controller annotation(Placement(visible = true, transformation(origin = {-60,-40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Controller controller(K = 1, Ti = 0.1, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-70,-80}, extent = {{-13.75,-13.75},{13.75,13.75}}, rotation = 0)));
+      Constant const[4](each k = 11000) annotation(Placement(visible = true, transformation(origin = {-66.25,-33.75}, extent = {{13.75,-13.75},{-13.75,13.75}}, rotation = 0)));
     equation
+      connect(const.y,controller.setPoint) annotation(Line(points = {{-81.375,-33.75},{-92.98779999999999,-33.75},{-92.98779999999999,-76.2195},{-87.5,-76.2195},{-87.5,-76.2195}}));
+      connect(controller.bus[3],arm4.bus) annotation(Line(points = {{-56.25,-77.25},{13.1098,-77.25},{13.1098,37.5},{13.5,37.5}}));
+      connect(controller.bus[2],arm1.bus) annotation(Line(points = {{-56.25,-77.25},{30.1829,-77.25},{30.1829,13.4146},{37.5,13.4146},{37.5,13.5}}));
+      connect(controller.bus[1],arm3.bus) annotation(Line(points = {{-56.25,-77.25},{14.0244,-77.25},{14.0244,-37.5},{13.5,-37.5}}));
+      connect(controller.bus[4],arm2.bus) annotation(Line(points = {{-56.25,-77.25},{-47.8659,-77.25},{-47.8659,13.4146},{-37.5,13.4146},{-37.5,13.5}}));
       connect(arm2.frame_a,chassis1.frame_E) annotation(Line(points = {{-37.5,0},{-26.3158,0},{-26.3158,0.526316},{-26.3158,0.526316}}));
       connect(arm3.frame_a,chassis1.frame_S) annotation(Line(points = {{-1.37773e-15,-37.5},{-1.37773e-15,-25.7895},{-1.05263,-25.7895},{-1.05263,-25.7895}}));
       connect(chassis1.frame_N,arm4.frame_a) annotation(Line(points = {{0,26.25},{0,26.25},{1.37773e-15,37.8947},{1.37773e-15,37.5}}));
       connect(chassis1.frame_W,arm1.frame_a) annotation(Line(points = {{26.25,0},{37.3684,0},{37.5,1.05263},{37.5,0}}));
-      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+      annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {1,1})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {1,1})));
     end Quadrotor;
     model Controller
       import Modelica.Blocks.Continuous.LimPID;
