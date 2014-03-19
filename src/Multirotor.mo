@@ -8,9 +8,9 @@ package Multirotor
       import Modelica.Mechanics.Rotational.Components.LossyGear;
       import Modelica.Mechanics.Rotational.Sensors.*;
       import Multirotor.Basics.Rotor;
-      ConstantVoltage constantvoltage1 annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
+      ConstantVoltage constantvoltage1(V = 12) annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
       Ground ground1 annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-12.5,-12.5},{12.5,12.5}}, rotation = 0)));
-      Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 314) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
+      Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 1100, Ra = 0.3, Jr = 3.5e-05) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
       LossyGear lossygear1(ratio = 1) annotation(Placement(visible = true, transformation(origin = {5,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
       AngleSensor angle annotation(Placement(visible = true, transformation(origin = {60,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       SpeedSensor angularSpeed annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
@@ -39,7 +39,7 @@ package Multirotor
       import Modelica.Blocks.Sources.Pulse;
       SignalVoltage signalvoltage1 annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
       Ground ground1 annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-12.5,-12.5},{12.5,12.5}}, rotation = 0)));
-      DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 314) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
+      DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 1100, Ra = 0.65, Jr = 3.5e-05) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
       LossyGear lossygear1(ratio = 1) annotation(Placement(visible = true, transformation(origin = {5,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
       AngleSensor angle annotation(Placement(visible = true, transformation(origin = {60,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       SpeedSensor angularSpeed annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
@@ -281,13 +281,14 @@ package Multirotor
       parameter SI.Length diameter = 0.01 "Diameter of the arm";
       parameter SI.Mass mass = 0.18 "Mass of the arm";
       parameter SI.Voltage motorVoltage = 12 "Motor nominal voltage";
-      parameter SI.Current motorCurrent = 1 "Motor nominal current";
+      parameter SI.Resistance motorResistance = 0.3 "Motor nominal resistence";
+      parameter SI.Inductance motorInductance = 0.0015 "Motor nominal inductance";
       parameter SI.AngularVelocity motorVelocity = 1100 "Motor nominal angular velocity";
       parameter SI.Inertia motorInertia = 3.5e-05 "Motor nominal inertia";
       parameter SI.Inertia rotorInertia = 3.5e-05 "Rotor nominal inertia";
       parameter Real liftCoefficient = 3.88e-07 "Lift coefficient";
       parameter Real dragCoefficients[3] = {9.96e-09,2.46e-10,4.33e-07} "Drag coefficients";
-      DC_PermanentMagnet dcpm(VaNominal = motorVoltage, IaNominal = motorCurrent, wNominal = motorVelocity, useSupport = true, Jr = motorInertia) annotation(Placement(visible = true, transformation(origin = {-40,0}, extent = {{-20,-20},{20,20}}, rotation = 0)));
+      DC_PermanentMagnet dcpm(VaNominal = motorVoltage, IaNominal = 1, wNominal = motorVelocity, useSupport = true, Jr = motorInertia, Ra = motorResistance, La = motorInductance) annotation(Placement(visible = true, transformation(origin = {-40,0}, extent = {{-20,-20},{20,20}}, rotation = 0)));
       BodyCylinder bodycylinder1(r = {length,0,0}, diameter = diameter, density = 4 * mass / length / diameter ^ 2 / Modelica.Constants.pi) annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-15.625,-15.625},{15.625,15.625}}, rotation = 0)));
       Rotor rotor1(bd = dragCoefficients, bl = liftCoefficient, Jr = rotorInertia) annotation(Placement(visible = true, transformation(origin = {80,0}, extent = {{-15,-15},{15,15}}, rotation = 0)));
       Modelica.Mechanics.MultiBody.Parts.Mounting1D mounting1d1(n = {0,1,0}) annotation(Placement(visible = true, transformation(origin = {0,-40}, extent = {{10,-10},{-10,10}}, rotation = 360)));
