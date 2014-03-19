@@ -128,6 +128,16 @@ package Multirotor
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end ArmTest;
     extends Modelica.Icons.ExamplesPackage;
+    model TestQuadrotor
+      Multirotor.Basics.Quadrotor quadrotor1 annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Modelica.Blocks.Sources.Constant const(k = 11000) annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+    equation
+      connect(const.y,quadrotor1.u[4]) annotation(Line(points = {{-49,-20},{12.959,-20},{12.959,26.7819},{12.959,26.7819}}));
+      connect(const.y,quadrotor1.u[3]) annotation(Line(points = {{-49,-20},{10.3672,-20},{10.3672,25.054},{10.3672,25.054}}));
+      connect(const.y,quadrotor1.u[2]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
+      connect(const.y,quadrotor1.u[1]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
+      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+    end TestQuadrotor;
   end Examples;
   package Basics
     model Rotor
@@ -163,24 +173,28 @@ package Multirotor
     end Rotor;
     model Quadrotor
       import Modelica.Blocks.Sources.Constant;
+      import Modelica.Blocks.Interfaces.RealInput;
       inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-      Controller controller(K = 1, Ti = 0.1, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-70,-80}, extent = {{-13.75,-13.75},{13.75,13.75}}, rotation = 0)));
-      Constant const[4](each k = 11000) annotation(Placement(visible = true, transformation(origin = {-66.25,-33.75}, extent = {{13.75,-13.75},{-13.75,13.75}}, rotation = 0)));
       Arm arm_N annotation(Placement(visible = true, transformation(origin = {0,80}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = -90)));
       Chassis chassis annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-26.25,-26.25},{26.25,26.25}}, rotation = 0)));
       Arm arm_E annotation(Placement(visible = true, transformation(origin = {60,20}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = 0)));
       Arm arm_S annotation(Placement(visible = true, transformation(origin = {0,-40}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = -90)));
       Arm arm_W annotation(Placement(visible = true, transformation(origin = {-60,20}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = 0)));
+      Controller controller(K = 1, Ti = 0.1, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-60,-80}, extent = {{-13.75,-13.75},{13.75,13.75}}, rotation = 0)));
+      Modelica.Blocks.Interfaces.RealInput u[4] annotation(Placement(visible = true, transformation(origin = {-110,-50}, extent = {{-15,-15},{15,15}}, rotation = 0), iconTransformation(origin = {-110,-50}, extent = {{-10,-10},{10,10}}, rotation = 0)));
     equation
-      connect(controller.bus[4],arm_W.bus) annotation(Line(points = {{-56.25,-77.25},{-28.3537,-77.25},{-28.3537,33.5366},{-37.1951,33.5366},{-37.1951,33.5366}}));
-      connect(controller.bus[3],arm_N.bus) annotation(Line(points = {{-56.25,-77.25},{22.8659,-77.25},{22.8659,50.6098},{13.4146,50.6098},{13.4146,57.3171},{13.4146,57.3171}}));
-      connect(controller.bus[2],arm_E.bus) annotation(Line(points = {{-56.25,-77.25},{32.622,-77.25},{32.622,34.1463},{36.8902,34.1463},{36.8902,34.1463}}));
-      connect(controller.bus[1],arm_S.bus) annotation(Line(points = {{-56.25,-77.25},{14.3293,-77.25},{14.3293,-17.6829},{14.3293,-17.6829}}));
+      connect(u[4],controller.setPoint[4]) annotation(Line(points = {{-110,-50},{-77.7538,-50},{-77.7538,-76.4579},{-77.7538,-76.4579}}));
+      connect(u[3],controller.setPoint[3]) annotation(Line(points = {{-110,-50},{-77.3218,-50},{-77.3218,-78.6177},{-77.3218,-78.6177}}));
+      connect(u[2],controller.setPoint[2]) annotation(Line(points = {{-110,-50},{-75.59399999999999,-50},{-75.59399999999999,-76.02589999999999},{-75.59399999999999,-76.02589999999999}}));
+      connect(u[1],controller.setPoint[1]) annotation(Line(points = {{-110,-50},{-78.1857,-50},{-78.1857,-77.7538},{-78.1857,-77.7538}}));
+      connect(controller.bus[4],arm_W.bus) annotation(Line(points = {{-46.25,-77.25},{-28.3537,-77.25},{-28.3537,33.5366},{-37.1951,33.5366},{-37.1951,33.5366}}));
+      connect(controller.bus[3],arm_N.bus) annotation(Line(points = {{-46.25,-77.25},{22.8659,-77.25},{22.8659,50.6098},{13.4146,50.6098},{13.4146,57.3171},{13.4146,57.3171}}));
+      connect(controller.bus[2],arm_E.bus) annotation(Line(points = {{-46.25,-77.25},{32.622,-77.25},{32.622,34.1463},{36.8902,34.1463},{36.8902,34.1463}}));
+      connect(controller.bus[1],arm_S.bus) annotation(Line(points = {{-46.25,-77.25},{14.3293,-77.25},{14.3293,-17.6829},{14.3293,-17.6829}}));
       connect(arm_N.frame_a,chassis.frame_N) annotation(Line(points = {{1.37773e-15,57.5},{1.37773e-15,46.3415},{-0.609756,46.3415},{-0.609756,46.3415}}));
       connect(arm_E.frame_a,chassis.frame_W) annotation(Line(points = {{37.5,20},{26.5244,20},{26.5244,20.4268},{26.5244,20.4268}}));
       connect(arm_S.frame_a,chassis.frame_S) annotation(Line(points = {{-1.37773e-15,-17.5},{-1.37773e-15,-5.79268},{0.304878,-5.79268},{0.304878,-5.79268}}));
       connect(arm_W.frame_a,chassis.frame_E) annotation(Line(points = {{-37.5,20},{-26.2195,20},{-26.2195,21.0366},{-26.2195,21.0366}}));
-      connect(const.y,controller.setPoint) annotation(Line(points = {{-81.375,-33.75},{-92.98779999999999,-33.75},{-92.98779999999999,-76.2195},{-87.5,-76.2195},{-87.5,-76.2195}}));
       annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {1,1})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {1,1})));
     end Quadrotor;
     model Controller
@@ -196,7 +210,7 @@ package Multirotor
       LimPID PID[N](each controllerType = Modelica.Blocks.Types.SimpleController.PI, each yMin = 0, each k = K, each Ti = Ti, each yMax = Vmax) annotation(Placement(visible = true, transformation(origin = {-20,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       Abs abs[N] annotation(Placement(visible = true, transformation(origin = {40,-20}, extent = {{10,-10},{-10,10}}, rotation = 0)));
       Bus bus[N] annotation(Placement(visible = true, transformation(origin = {100,20}, extent = {{-15,-15},{15,15}}, rotation = 90), iconTransformation(origin = {100,20}, extent = {{-10,-10},{10,10}}, rotation = 90)));
-      RealInput setPoint[N] annotation(Placement(visible = true, transformation(origin = {-115,25}, extent = {{-15,-15},{15,15}}, rotation = 0), iconTransformation(origin = {-115,25}, extent = {{-15,-15},{15,15}}, rotation = 0)));
+      RealInput setPoint[N] annotation(Placement(visible = true, transformation(origin = {-120,20}, extent = {{-15,-15},{15,15}}, rotation = 0), iconTransformation(origin = {-115,25}, extent = {{-15,-15},{15,15}}, rotation = 0)));
     equation
       for i in 1:N loop
       connect(setPoint[i],PID[i].u_s);
