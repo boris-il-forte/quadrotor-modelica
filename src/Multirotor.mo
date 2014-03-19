@@ -140,24 +140,24 @@ package Multirotor
     end TestQuadrotor;
   end Examples;
   package Basics
+    import SI = Modelica.SIunits;
     model Rotor
       import Modelica.Mechanics.Rotational.Interfaces.*;
       import Modelica.Mechanics.MultiBody.Interfaces.*;
       import Modelica.Mechanics.Rotational.Components.Inertia;
       import Modelica.Mechanics.MultiBody.Parts.Body;
-      import Modelica.SIunits.*;
       import Modelica.SIunits.Conversions.NonSIunits.Angle_deg;
       parameter Angle_deg alpha = 10 "The angle of the rotor blades";
       parameter Real bd[3] = {9.96e-09,2.46e-10,4.33e-07};
       parameter Real bl = 3.88e-07;
-      parameter Modelica.SIunits.Inertia Jr = 3.5e-05;
+      parameter SI.Inertia Jr = 3.5e-05;
       Flange_a flange annotation(Placement(visible = true, transformation(origin = {-100,20}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {-100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       Inertia inertia(J = 0) annotation(Placement(visible = true, transformation(origin = {-40,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       InternalSupport internalsupport annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       Frame_b frame annotation(Placement(visible = true, transformation(origin = {0,-100}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 90), iconTransformation(origin = {0,-100}, extent = {{-10,-10},{10,10}}, rotation = -90)));
-      Force L[3] "The lift produced by the rotor";
-      Torque Tl "The Drag produced by the rotor";
-      AngularVelocity w "The angular velocity of the rotor";
+      SI.Force L[3] "The lift produced by the rotor";
+      SI.Torque Tl "The Drag produced by the rotor";
+      SI.AngularVelocity w "The angular velocity of the rotor";
     equation
       w = der(inertia.flange_b.phi);
       L[1] = 0;
@@ -223,11 +223,10 @@ package Multirotor
       annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2}), graphics = {Rectangle(origin = {-0.26,-0.26}, fillColor = {255,255,255}, fillPattern = FillPattern.Backward, extent = {{-99.20999999999999,99.73999999999999},{99.73999999999999,-99.73999999999999}}),Text(origin = {-2.63,6.32}, lineColor = {0,0,255}, extent = {{-74.01000000000001,33.86},{76.45,-30.2}}, textString = "%name")}));
     end Controller;
     model ChassisNRotor
-      import Modelica.SIunits.Mass;
       import Modelica.Mechanics.MultiBody.Parts.FixedRotation;
       import Modelica.Mechanics.MultiBody.Parts.Body;
       import Modelica.Mechanics.MultiBody.Interfaces.Frame_a;
-      parameter Mass mass = 0.78 "Mass of the chassis (central body)";
+      parameter SI.Mass mass = 0.78 "Mass of the chassis (central body)";
       parameter Integer N = 3 "Number of Arms";
       Frame_a frame[N] annotation(Placement(visible = true, transformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0), iconTransformation(origin = {100,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       FixedRotation fixedrotation[N - 1](n = array({0,1,0} for i in 1:N - 1), angle = array(360 * i / N for i in 1:N - 1));
@@ -242,11 +241,10 @@ package Multirotor
       annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {0,0})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {0,0}), graphics = {Ellipse(fillColor = {3,104,255}, fillPattern = FillPattern.CrossDiag, extent = {{100,100},{-100,-100}}, endAngle = 360),Text(origin = {-0.15,109.61}, lineColor = {0,0,255}, extent = {{-55.34,23.93},{55.34,-23.93}}, textString = "%name")}));
     end ChassisNRotor;
     model Chassis
-      import Modelica.SIunits.Mass;
       import Modelica.Mechanics.MultiBody.Parts.FixedRotation;
       import Modelica.Mechanics.MultiBody.Parts.Body;
       import Modelica.Mechanics.MultiBody.Interfaces.Frame_a;
-      parameter Mass mass = 0.78 "Mass of the chassis (central body)";
+      parameter SI.Mass mass = 0.78 "Mass of the chassis (central body)";
       FixedRotation fixedrotation2(n = {0,1,0}, angle = 270) annotation(Placement(visible = true, transformation(origin = {40,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       FixedRotation fixedrotation1(n = {0,1,0}, angle = 180) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       FixedRotation fixedrotation3(n = {0,1,0}, angle = 90) annotation(Placement(visible = true, transformation(origin = {40,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
@@ -278,15 +276,14 @@ package Multirotor
       import Modelica.Mechanics.Rotational.Sensors.AngleSensor;
       import Modelica.Blocks.Interfaces.RealOutput;
       import Modelica.Mechanics.Rotational.Components.LossyGear;
-      import Modelica.SIunits.*;
-      parameter Length length = 0.2 "Lenght of the arm";
-      parameter Length diameter = 0.01 "Diameter of the arm";
-      parameter Mass mass = 0.18 "Mass of the arm";
-      parameter Voltage motorVoltage = 12 "Motor nominal voltage";
-      parameter Current motorCurrent = 1 "Motor nominal current";
-      parameter AngularVelocity motorVelocity = 1100 "Motor nominal angular velocity";
-      parameter Inertia motorInertia = 3.5e-05 "Motor nominal inertia";
-      parameter Inertia rotorInertia = 3.5e-05 "Rotor nominal inertia";
+      parameter SI.Length length = 0.2 "Lenght of the arm";
+      parameter SI.Length diameter = 0.01 "Diameter of the arm";
+      parameter SI.Mass mass = 0.18 "Mass of the arm";
+      parameter SI.Voltage motorVoltage = 12 "Motor nominal voltage";
+      parameter SI.Current motorCurrent = 1 "Motor nominal current";
+      parameter SI.AngularVelocity motorVelocity = 1100 "Motor nominal angular velocity";
+      parameter SI.Inertia motorInertia = 3.5e-05 "Motor nominal inertia";
+      parameter SI.Inertia rotorInertia = 3.5e-05 "Rotor nominal inertia";
       parameter Real liftCoefficient = 3.88e-07 "Lift coefficient";
       parameter Real dragCoefficients[3] = {9.96e-09,2.46e-10,4.33e-07} "Drag coefficients";
       DC_PermanentMagnet dcpm(VaNominal = motorVoltage, IaNominal = motorCurrent, wNominal = motorVelocity, useSupport = true, Jr = motorInertia) annotation(Placement(visible = true, transformation(origin = {-40,0}, extent = {{-20,-20},{20,20}}, rotation = 0)));
