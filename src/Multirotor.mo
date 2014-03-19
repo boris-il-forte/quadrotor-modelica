@@ -181,7 +181,7 @@ package Multirotor
       Arm arm_E annotation(Placement(visible = true, transformation(origin = {60,20}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = 0)));
       Arm arm_S annotation(Placement(visible = true, transformation(origin = {0,-40}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = -90)));
       Arm arm_W annotation(Placement(visible = true, transformation(origin = {-60,20}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = 0)));
-      Controller controller(K = 1, Ti = 0.1, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-60,-80}, extent = {{-13.75,-13.75},{13.75,13.75}}, rotation = 0)));
+      Controller controller(K = 0.004, Ti = 0.055, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-60,-80}, extent = {{-13.75,-13.75},{13.75,13.75}}, rotation = 0)));
       Modelica.Blocks.Interfaces.RealInput u[4] annotation(Placement(visible = true, transformation(origin = {-110,-50}, extent = {{-15,-15},{15,15}}, rotation = 0), iconTransformation(origin = {-110,-50}, extent = {{-10,-10},{10,10}}, rotation = 0)));
     equation
       connect(u[4],controller.setPoint[4]) annotation(Line(points = {{-110,-50},{-77.7538,-50},{-77.7538,-76.4579},{-77.7538,-76.4579}}));
