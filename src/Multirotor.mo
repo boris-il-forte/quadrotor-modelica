@@ -216,7 +216,7 @@ package Multirotor
       for i in 1:N loop
       connect(setPoint[i],PID[i].u_s);
       connect(bus[i].sensor,abs[i].u);
-      connect(abs[i].u,PID[i].u_m);
+      connect(abs[i].y,PID[i].u_m);
       connect(PID[i].y,gain[i].u);
       connect(gain[i].y,bus[i].control);
 
