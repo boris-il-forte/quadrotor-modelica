@@ -1,34 +1,7 @@
 package Multirotor
-  package Examples
-    model RotorTest "Test of a fixed rotor with fixed input"
-      extends Modelica.Icons.Example;
-      import Modelica.Mechanics.MultiBody.World;
-      import Modelica.Electrical.Analog.Sources.ConstantVoltage;
-      import Modelica.Electrical.Analog.Basic.Ground;
-      import Modelica.Electrical.Machines.BasicMachines.DCMachines.DC_PermanentMagnet;
-      import Modelica.Mechanics.Rotational.Components.LossyGear;
-      import Modelica.Mechanics.Rotational.Sensors.*;
-      import Multirotor.Basics.Rotor;
-      ConstantVoltage constantvoltage1(V = 12) annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{10,-10},{-10,10}}, rotation = 0)));
-      Ground ground1 annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-12.5,-12.5},{12.5,12.5}}, rotation = 0)));
-      DC_PermanentMagnet dcpm(VaNominal = 12, IaNominal = 1, wNominal = 1100, Ra = 0.3, Jr = 3.5e-05) annotation(Placement(visible = true, transformation(origin = {-55,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
-      LossyGear lossygear1(ratio = 1) annotation(Placement(visible = true, transformation(origin = {5,15}, extent = {{-15,-15},{15,15}}, rotation = 0)));
-      AngleSensor angle annotation(Placement(visible = true, transformation(origin = {60,40}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-      SpeedSensor angularSpeed annotation(Placement(visible = true, transformation(origin = {60,0}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
-      Rotor rotor1 annotation(Placement(visible = true, transformation(origin = {40,-60}, extent = {{-10,-10},{10,10}}, rotation = -90)));
-    equation
-      connect(rotor1.frame,world.frame_b) annotation(Line(points = {{30,-60},{30,-59.4512},{-50.3049,-59.4512},{-50.3049,-59.4512}}));
-      connect(rotor1.flange,lossygear1.flange_b) annotation(Line(points = {{40,-50},{40,15.2439},{20.4268,15.2439},{20.4268,15.2439}}));
-      connect(lossygear1.flange_b,angle.flange) annotation(Line(points = {{20,15},{20.4268,15},{20.4268,40.2439},{50,40.2439},{50,40.2439}}));
-      connect(angularSpeed.flange,lossygear1.flange_b) annotation(Line(points = {{50,0},{20.4268,0},{20.4268,15.2439},{20.4268,15.2439}}));
-      connect(dcpm.flange,lossygear1.flange_a) annotation(Line(points = {{-40,15},{-10.6707,15},{-10.6707,14.6341},{-10.6707,14.6341}}));
-      connect(dcpm.pin_ap,constantvoltage1.p) annotation(Line(points = {{-46,30},{-39.3293,30},{-39.3293,60.3659},{-50,60.3659},{-50,60}}));
-      connect(constantvoltage1.n,dcpm.pin_an) annotation(Line(points = {{-70,60},{-79.5732,60},{-79.5732,30.1829},{-66,30},{-64,30}}));
-      connect(ground1.p,constantvoltage1.n) annotation(Line(points = {{-60,92.5},{-70.4268,92.5},{-70.4268,60.6707},{-70.4268,60.6707}}));
-      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
-    end RotorTest;
-    model RotorDinamicsTest "Test of the rotor on/off dinamics"
+  package Test
+    extends Modelica.Icons.UtilitiesPackage;
+    model RotorTest "Test of the rotor on/off dinamics"
       extends Modelica.Icons.Example;
       import Modelica.Mechanics.MultiBody.World;
       import Modelica.Electrical.Analog.Sources.SignalVoltage;
@@ -58,7 +31,7 @@ package Multirotor
       connect(signalvoltage1.n,dcpm.pin_an) annotation(Line(points = {{-70,60},{-79.5732,60},{-79.5732,30.1829},{-66,30},{-64,30}}));
       connect(ground1.p,signalvoltage1.n) annotation(Line(points = {{-60,92.5},{-70.4268,92.5},{-70.4268,60.6707},{-70.4268,60.6707}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
-    end RotorDinamicsTest;
+    end RotorTest;
     model ChassisTest "Test of the weight forces on a simple quadrotor chassis"
       extends Modelica.Icons.Example;
       import Multirotor.Basics.Chassis;
@@ -128,6 +101,20 @@ package Multirotor
       connect(arm1.frame_a,world.frame_b) annotation(Line(points = {{-5,20},{-70,20},{-70,20.5263},{-70,20.5263}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end ArmTest;
+    model ControllerTest "Test of the arm control under sinusoidal input"
+      extends Modelica.Icons.Example;
+      Multirotor.Basics.Arm arm1 annotation(Placement(visible = true, transformation(origin = {60,-60}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
+      Multirotor.Basics.Controller controller1(N = 1, K = 0.004, Ti = 0.055, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {0,0}, extent = {{-25,-25},{25,25}}, rotation = -90)));
+      Modelica.Blocks.Sources.Sine sine1(amplitude = 100, freqHz = 1, offset = 900) annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
+    equation
+      connect(sine1.y,controller1.setPoint[1]) annotation(Line(points = {{-40.75,60},{5.98131,60},{5.98131,28.75},{6.25,28.75}}));
+      connect(controller1.bus[1],arm1.bus) annotation(Line(points = {{5,-25},{5,-44.8598},{35,-44.8598},{35,-45}}));
+      connect(world.frame_b,arm1.frame_a) annotation(Line(points = {{-42.5,-60},{34.7664,-60},{34.7664,-59.4393},{34.7664,-59.4393}}));
+      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+    end ControllerTest;
+  end Test;
+  package Examples
     extends Modelica.Icons.ExamplesPackage;
     model TestQuadrotor "Simple quadrotor lift test"
       extends Modelica.Icons.Example;
@@ -143,28 +130,18 @@ package Multirotor
     end TestQuadrotor;
     model TestNRotor "Simple N-rotor lift test (with 4 arms)"
       extends Modelica.Icons.Example;
-      Multirotor.Basics.NRotor nrotor(N = 4) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Multirotor.Basics.NRotor nrotor(N = 6) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-25,-25},{25,25}}, rotation = 0)));
       Modelica.Blocks.Sources.Constant const(k = 1100) annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
     equation
+      connect(const.y,nrotor.u[6]) annotation(Line(points = {{-49,-20},{12.959,-20},{12.959,26.7819},{12.959,26.7819}}));
+      connect(const.y,nrotor.u[5]) annotation(Line(points = {{-49,-20},{12.959,-20},{12.959,26.7819},{12.959,26.7819}}));
       connect(const.y,nrotor.u[4]) annotation(Line(points = {{-49,-20},{12.959,-20},{12.959,26.7819},{12.959,26.7819}}));
       connect(const.y,nrotor.u[3]) annotation(Line(points = {{-49,-20},{10.3672,-20},{10.3672,25.054},{10.3672,25.054}}));
       connect(const.y,nrotor.u[2]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
       connect(const.y,nrotor.u[1]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end TestNRotor;
-    model ControllerTest "Test of the arm control under sinusoidal input"
-      extends Modelica.Icons.Example;
-      Multirotor.Basics.Arm arm1 annotation(Placement(visible = true, transformation(origin = {60,-60}, extent = {{-25,-25},{25,25}}, rotation = 0)));
-      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
-      Multirotor.Basics.Controller controller1(N = 1, K = 0.004, Ti = 0.055, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {0,0}, extent = {{-25,-25},{25,25}}, rotation = -90)));
-      Modelica.Blocks.Sources.Sine sine1(amplitude = 100, freqHz = 1, offset = 900) annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
-    equation
-      connect(sine1.y,controller1.setPoint[1]) annotation(Line(points = {{-40.75,60},{5.98131,60},{5.98131,28.75},{6.25,28.75}}));
-      connect(controller1.bus[1],arm1.bus) annotation(Line(points = {{5,-25},{5,-44.8598},{35,-44.8598},{35,-45}}));
-      connect(world.frame_b,arm1.frame_a) annotation(Line(points = {{-42.5,-60},{34.7664,-60},{34.7664,-59.4393},{34.7664,-59.4393}}));
-      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
-    end ControllerTest;
   end Examples;
   package Basics
     import SI = Modelica.SIunits;
