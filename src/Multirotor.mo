@@ -131,8 +131,9 @@ package Multirotor
     extends Modelica.Icons.ExamplesPackage;
     model TestQuadrotor "Simple quadrotor lift test"
       extends Modelica.Icons.Example;
-      Multirotor.Basics.NRotor quadrotor1(N = 4) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Multirotor.Basics.Quadrotor quadrotor1 annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-25,-25},{25,25}}, rotation = 0)));
       Modelica.Blocks.Sources.Constant const(k = 1100) annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
     equation
       connect(const.y,quadrotor1.u[4]) annotation(Line(points = {{-49,-20},{12.959,-20},{12.959,26.7819},{12.959,26.7819}}));
       connect(const.y,quadrotor1.u[3]) annotation(Line(points = {{-49,-20},{10.3672,-20},{10.3672,25.054},{10.3672,25.054}}));
@@ -140,6 +141,18 @@ package Multirotor
       connect(const.y,quadrotor1.u[1]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end TestQuadrotor;
+    model TestNRotor "Simple N-rotor lift test (with 4 arms)"
+      extends Modelica.Icons.Example;
+      Multirotor.Basics.NRotor nrotor(N = 4) annotation(Placement(visible = true, transformation(origin = {40,40}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Modelica.Blocks.Sources.Constant const(k = 1100) annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+    equation
+      connect(const.y,nrotor.u[4]) annotation(Line(points = {{-49,-20},{12.959,-20},{12.959,26.7819},{12.959,26.7819}}));
+      connect(const.y,nrotor.u[3]) annotation(Line(points = {{-49,-20},{10.3672,-20},{10.3672,25.054},{10.3672,25.054}}));
+      connect(const.y,nrotor.u[2]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
+      connect(const.y,nrotor.u[1]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
+      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+    end TestNRotor;
     model ControllerTest "Test of the arm control under sinusoidal input"
       extends Modelica.Icons.Example;
       Multirotor.Basics.Arm arm1 annotation(Placement(visible = true, transformation(origin = {60,-60}, extent = {{-25,-25},{25,25}}, rotation = 0)));
@@ -188,7 +201,6 @@ package Multirotor
     model Quadrotor "Model of a standard quadrotor"
       import Modelica.Blocks.Sources.Constant;
       import Modelica.Blocks.Interfaces.RealInput;
-      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
       Arm arm_N annotation(Placement(visible = true, transformation(origin = {0,80}, extent = {{22.5,-22.5},{-22.5,22.5}}, rotation = -90)));
       Chassis chassis annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-26.25,-26.25},{26.25,26.25}}, rotation = 0)));
       Arm arm_E annotation(Placement(visible = true, transformation(origin = {60,20}, extent = {{-22.5,-22.5},{22.5,22.5}}, rotation = 0)));
@@ -336,19 +348,19 @@ package Multirotor
     end PartialArm;
     model NRotor
       import Modelica.Blocks.Interfaces.RealInput;
-      parameter Integer N = 3 "Number of Arms";
+      parameter Integer N = 4 "Number of Arms";
       ChassisNRotor chassisnrotor1(N = N) annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-21,-21},{21,21}}, rotation = 0)));
       Arm arm[N] annotation(Placement(visible = true, transformation(origin = {42,-22}, extent = {{-22,-22},{22,22}}, rotation = 0)));
-      Controller controller(K = 0.004, Ti = 0.055, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-20,40}, extent = {{-14,-14},{14,14}}, rotation = 0)));
+      Controller controller(N = N, K = 0.004, Ti = 0.055, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {-20,40}, extent = {{-14,-14},{14,14}}, rotation = 0)));
       RealInput u[N] annotation(Placement(visible = true, transformation(origin = {-120,60}, extent = {{-15,-15},{15,15}}, rotation = 0), iconTransformation(origin = {-110,-50}, extent = {{-15,-15},{15,15}}, rotation = 0)));
     equation
       for i in 1:N loop
       connect(chassisnrotor1.frame[i],arm[i].frame_a);
       connect(controller.bus[i],arm[i].bus);
-      connect(u[i],controller.setPoint[i]) annotation(Line(points = {{-120,60},{-36.5812,60},{-36.5812,43.5},{-36.1,43.5}}));
+      connect(u[i],controller.setPoint[i]);
 
       end for;
-      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+      annotation(Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {1,1})), Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {1,1}), graphics = {Ellipse(fillColor = {3,104,255}, fillPattern = FillPattern.CrossDiag, extent = {{30,30},{-30,-30}}, endAngle = 360),Rectangle(fillColor = {40,40,255}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-70,3},{70,-3}}),Rectangle(origin = {0,-0.25}, fillColor = {0,0,255}, fillPattern = FillPattern.VerticalCylinder, extent = {{-3,70},{3,-70}}),Rectangle(origin = {67,10}, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Text(origin = {-38.5858,34.3105}, lineColor = {0,0,255}, extent = {{-52.9,38.11},{26.5668,-4.48989}}, textString = "%name"),Rectangle(origin = {67,-10}, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Ellipse(origin = {67,0}, rotation = -90, fillColor = {71,71,71}, fillPattern = FillPattern.Sphere, extent = {{-6,6},{6,-6}}, endAngle = 360),Rectangle(origin = {-67,-10}, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Rectangle(origin = {-67,10}, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Ellipse(origin = {-67,0}, rotation = -90, fillColor = {71,71,71}, fillPattern = FillPattern.Sphere, extent = {{-6,6},{6,-6}}, endAngle = 360),Rectangle(origin = {-10,67}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Rectangle(origin = {10,67}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Ellipse(origin = {0,67}, rotation = -90, fillColor = {71,71,71}, fillPattern = FillPattern.Sphere, extent = {{-6,6},{6,-6}}, endAngle = 360),Rectangle(origin = {-10,-67}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Rectangle(origin = {10,-67}, rotation = -90, fillColor = {247,247,247}, fillPattern = FillPattern.HorizontalCylinder, extent = {{-1.5,6},{1.5,-6}}),Ellipse(origin = {0,-67}, rotation = -90, fillColor = {71,71,71}, fillPattern = FillPattern.Sphere, extent = {{-6,6},{6,-6}}, endAngle = 360)}));
     end NRotor;
   end Basics;
   extends Modelica.Icons.Package;
