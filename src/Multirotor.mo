@@ -140,6 +140,18 @@ package Multirotor
       connect(const.y,quadrotor1.u[1]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end TestQuadrotor;
+    model ControllerTest "Test of the arm control under sinusoidal input"
+      extends Modelica.Icons.Example;
+      Multirotor.Basics.Arm arm1 annotation(Placement(visible = true, transformation(origin = {60,-60}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,-60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
+      Multirotor.Basics.Controller controller1(N = 1, K = 0.004, Ti = 0.055, Vmax = 12) annotation(Placement(visible = true, transformation(origin = {0,0}, extent = {{-25,-25},{25,25}}, rotation = -90)));
+      Modelica.Blocks.Sources.Sine sine1(amplitude = 100, freqHz = 1, offset = 900) annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-17.5,-17.5},{17.5,17.5}}, rotation = 0)));
+    equation
+      connect(sine1.y,controller1.setPoint[1]) annotation(Line(points = {{-40.75,60},{5.98131,60},{5.98131,28.75},{6.25,28.75}}));
+      connect(controller1.bus[1],arm1.bus) annotation(Line(points = {{5,-25},{5,-44.8598},{35,-44.8598},{35,-45}}));
+      connect(world.frame_b,arm1.frame_a) annotation(Line(points = {{-42.5,-60},{34.7664,-60},{34.7664,-59.4393},{34.7664,-59.4393}}));
+      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+    end ControllerTest;
   end Examples;
   package Basics
     import SI = Modelica.SIunits;
