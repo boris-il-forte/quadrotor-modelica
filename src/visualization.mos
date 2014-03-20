@@ -1,4 +1,4 @@
-loadFile("Multirotor/package.mo");  getErrorString(); 
+loadFile("Multirotor.mo");  getErrorString(); 
 loadModelica3D(); 
 loadString(" 
 partial model Visualization 
