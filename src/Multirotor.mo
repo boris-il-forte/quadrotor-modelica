@@ -142,6 +142,31 @@ package Multirotor
       connect(const.y,nrotor.u[1]) annotation(Line(points = {{-49,-20},{12.095,-20},{12.095,28.0778},{12.095,28.0778}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end TestNRotor;
+    model TestYaw "Simple quadrotor yaw test"
+      extends Modelica.Icons.Example;
+      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Multirotor.Basics.Quadrotor quadrotor1 annotation(Placement(visible = true, transformation(origin = {0,-20}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Modelica.Blocks.Sources.Step step1(height = -34, offset = 1010, startTime = 3) annotation(Placement(visible = true, transformation(origin = {-20,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add1 annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add4(k2 = -1) annotation(Placement(visible = true, transformation(origin = {0,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add2(k2 = -1) annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add3 annotation(Placement(visible = true, transformation(origin = {60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Sources.Step step2(height = 10, startTime = 5) annotation(Placement(visible = true, transformation(origin = {-60,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+    equation
+      connect(step2.y,add3.u2) annotation(Line(points = {{-49,-80},{-42.5806,-80},{-42.5806,-89.8925},{47.7419,-89.8925},{47.7419,-27.957},{47.7419,-27.957}}));
+      connect(step2.y,add2.u2) annotation(Line(points = {{-49,-80},{-42.1505,-80},{-42.1505,12.9032},{-11.1828,12.9032},{-11.1828,12.9032}}));
+      connect(step2.y,add1.u2) annotation(Line(points = {{-49,-80},{-72.68819999999999,-80},{-72.68819999999999,-27.5269},{-72.68819999999999,-27.5269}}));
+      connect(step2.y,add4.u2) annotation(Line(points = {{-49,-80},{-14.1935,-80},{-14.1935,-85.59139999999999},{-14.1935,-85.59139999999999}}));
+      connect(step1.y,add4.u1) annotation(Line(points = {{-9,60},{80.4301,60},{80.4301,-74.8387},{-12.4731,-74.8387},{-12.4731,-74.8387}}));
+      connect(step1.y,add1.u1) annotation(Line(points = {{-9,60},{-72.68819999999999,60},{-72.68819999999999,-14.6237},{-72.68819999999999,-14.6237}}));
+      connect(step1.y,add3.u1) annotation(Line(points = {{-9,60},{47.3118,60},{47.3118,-14.6237},{47.3118,-14.6237}}));
+      connect(step1.y,add2.u1) annotation(Line(points = {{-9,60},{-13.7634,60},{-13.7634,25.8065},{-13.7634,25.8065}}));
+      connect(add4.y,quadrotor1.u[4]) annotation(Line(points = {{11,-80},{30.1075,-80},{30.1075,-46.8817},{-26.2366,-46.8817},{-26.2366,-30.5376},{-26.2366,-30.5376}}));
+      connect(add3.y,quadrotor1.u[3]) annotation(Line(points = {{71,-20},{64.51609999999999,-20},{64.51609999999999,-32.6882},{-26.6667,-32.6882},{-26.6667,-32.6882}}));
+      connect(add2.y,quadrotor1.u[2]) annotation(Line(points = {{11,20},{15.914,20},{15.914,3.44086},{-26.6667,3.44086},{-26.6667,-32.6882},{-26.6667,-32.6882}}));
+      connect(add1.y,quadrotor1.u[1]) annotation(Line(points = {{-49,-20},{-28.8172,-20},{-28.8172,-32.2581},{-28.8172,-32.2581}}));
+      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+    end TestYaw;
   end Examples;
   package Basics
     import SI = Modelica.SIunits;
