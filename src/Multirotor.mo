@@ -167,6 +167,31 @@ package Multirotor
       connect(add1.y,quadrotor1.u[1]) annotation(Line(points = {{-49,-20},{-28.8172,-20},{-28.8172,-32.2581},{-28.8172,-32.2581}}));
       annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
     end TestYaw;
+    model TestRollPitch "Simple quadrotor roll/pitch test"
+      extends Modelica.Icons.Example;
+      inner Modelica.Mechanics.MultiBody.World world annotation(Placement(visible = true, transformation(origin = {-60,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Multirotor.Basics.Quadrotor quadrotor1 annotation(Placement(visible = true, transformation(origin = {0,-20}, extent = {{-25,-25},{25,25}}, rotation = 0)));
+      Modelica.Blocks.Sources.Step step1(height = -14, offset = 1010, startTime = 3) annotation(Placement(visible = true, transformation(origin = {-20,60}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add1(k2 = -1) annotation(Placement(visible = true, transformation(origin = {-60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add4(k2 = -1) annotation(Placement(visible = true, transformation(origin = {0,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add2(k2 = +1) annotation(Placement(visible = true, transformation(origin = {0,20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Math.Add add3 annotation(Placement(visible = true, transformation(origin = {60,-20}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+      Modelica.Blocks.Sources.Step step2(height = 10, startTime = 5) annotation(Placement(visible = true, transformation(origin = {-80,-80}, extent = {{-10,-10},{10,10}}, rotation = 0)));
+    equation
+      connect(step2.y,add3.u2) annotation(Line(points = {{-69,-80},{-64.9462,-80},{-64.9462,-91.6129},{46.8817,-91.6129},{46.8817,-26.2366},{46.8817,-26.2366}}));
+      connect(step2.y,add4.u2) annotation(Line(points = {{-69,-80},{-61.0753,-80},{-61.0753,-86.8817},{-12.9032,-86.8817},{-12.9032,-86.8817}}));
+      connect(step2.y,add2.u2) annotation(Line(points = {{-69,-80},{-41.7204,-80},{-41.7204,14.1935},{-11.1828,14.1935},{-11.1828,14.1935}}));
+      connect(step2.y,add1.u2) annotation(Line(points = {{-69,-80},{-72.68819999999999,-80},{-72.68819999999999,-25.3763},{-72.68819999999999,-25.3763}}));
+      connect(step1.y,add4.u1) annotation(Line(points = {{-9,60},{80.4301,60},{80.4301,-74.8387},{-12.4731,-74.8387},{-12.4731,-74.8387}}));
+      connect(step1.y,add1.u1) annotation(Line(points = {{-9,60},{-72.68819999999999,60},{-72.68819999999999,-14.6237},{-72.68819999999999,-14.6237}}));
+      connect(step1.y,add3.u1) annotation(Line(points = {{-9,60},{47.3118,60},{47.3118,-14.6237},{47.3118,-14.6237}}));
+      connect(step1.y,add2.u1) annotation(Line(points = {{-9,60},{-13.7634,60},{-13.7634,25.8065},{-13.7634,25.8065}}));
+      connect(add4.y,quadrotor1.u[4]) annotation(Line(points = {{11,-80},{30.1075,-80},{30.1075,-46.8817},{-26.2366,-46.8817},{-26.2366,-30.5376},{-26.2366,-30.5376}}));
+      connect(add3.y,quadrotor1.u[3]) annotation(Line(points = {{71,-20},{64.51609999999999,-20},{64.51609999999999,-32.6882},{-26.6667,-32.6882},{-26.6667,-32.6882}}));
+      connect(add2.y,quadrotor1.u[2]) annotation(Line(points = {{11,20},{15.914,20},{15.914,3.44086},{-26.6667,3.44086},{-26.6667,-32.6882},{-26.6667,-32.6882}}));
+      connect(add1.y,quadrotor1.u[1]) annotation(Line(points = {{-49,-20},{-28.8172,-20},{-28.8172,-32.2581},{-28.8172,-32.2581}}));
+      annotation(Icon(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})), Diagram(coordinateSystem(extent = {{-100,-100},{100,100}}, preserveAspectRatio = true, initialScale = 0.1, grid = {2,2})));
+    end TestRollPitch;
   end Examples;
   package Basics
     import SI = Modelica.SIunits;
