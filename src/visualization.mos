@@ -6,7 +6,7 @@ inner ModelicaServices.Modelica3D.Controller m3d_control;
 end Visualization; 
 model Visualize_Quadrotor  
   extends Visualization; 
-  extends Multirotor.Basics.Quadrotor; 
+  extends Multirotor.Examples.TestQuadrotor;
 end Visualize_Quadrotor; 
 "); 
 simulate(Visualize_Quadrotor,stopTime=10, tolerance=1e-12, method="dasslwort"); getErrorString(); 
